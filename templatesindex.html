@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubLingo Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <h1>SubLingo Studio</h1>
+        <p>Subtitle translation for creators</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#workspace">Workspace</a>
+      <a href="#preview">Preview</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="pill">Modern startup UI</span>
+        <h2>Translate subtitles with a pro workflow.</h2>
+        <p>
+          Upload <strong>.srt</strong> or <strong>.vtt</strong> files, translate them instantly,
+          preview subtitle blocks, search lines, and download ready-to-use output.
+        </p>
+        <div class="hero-actions">
+          <a href="#workspace" class="btn btn-primary">Start translating</a>
+          <a href="#features" class="btn btn-secondary">Explore features</a>
+        </div>
+        <div class="mini-stats">
+          <div class="mini-card"><strong>.srt / .vtt</strong><span>Format support</span></div>
+          <div class="mini-card"><strong>15+</strong><span>Target languages</span></div>
+          <div class="mini-card"><strong>Live</strong><span>Instant preview</span></div>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="glass-card">
+          <div class="glass-header">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="mock-line wide"></div>
+          <div class="mock-line"></div>
+          <div class="mock-subbox">
+            <small>00:00:01,000 --> 00:00:03,000</small>
+            <p>Hello, welcome to SubLingo Studio.</p>
+            <p class="muted">හලෝ, SubLingo Studio වෙත සාදරයෙන් පිළිගනිමු.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head">
+        <span class="pill">Features</span>
+        <h3>Built like a real product</h3>
+        <p>Everything you need for a strong student project, portfolio project, or startup-style demo.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h4>Drag and drop upload</h4>
+          <p>Drop subtitle files directly into the workspace for a fast modern experience.</p>
+        </article>
+        <article class="feature-card">
+          <h4>SRT and VTT support</h4>
+          <p>Translate common subtitle formats used in movies, tutorials, and web videos.</p>
+        </article>
+        <article class="feature-card">
+          <h4>Subtitle block preview</h4>
+          <p>Read translated blocks in a clean card layout before downloading the final file.</p>
+        </article>
+        <article class="feature-card">
+          <h4>Search output</h4>
+          <p>Quickly search by subtitle text or timestamp inside translated results.</p>
+        </article>
+        <article class="feature-card">
+          <h4>Video preview area</h4>
+          <p>Upload a local video file and preview it inside the dashboard layout.</p>
+        </article>
+        <article class="feature-card">
+          <h4>No API key needed</h4>
+          <p>This version uses a free translation library, so it is easier to test locally.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace" id="workspace">
+      <div class="section-head">
+        <span class="pill">Workspace</span>
+        <h3>Upload and translate now</h3>
+      </div>
+
+      <div class="workspace-grid">
+        <div class="panel">
+          <form id="uploadForm">
+            <div id="dropZone" class="drop-zone">
+              <input type="file" id="subtitle" name="subtitle" accept=".srt,.vtt" hidden required>
+              <div class="upload-icon">⬆</div>
+              <h4>Drop subtitle file here</h4>
+              <p>or click to browse your computer</p>
+              <div id="fileName" class="file-chip hidden"></div>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="target_lang">Translate to</label>
+                <select id="target_lang" name="target_lang">
+                  <option value="en">English</option>
+                  <option value="si">Sinhala</option>
+                  <option value="ta">Tamil</option>
+                  <option value="hi">Hindi</option>
+                  <option value="fr">French</option>
+                  <option value="es">Spanish</option>
+                  <option value="de">German</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
+                  <option value="ar">Arabic</option>
+                  <option value="it">Italian</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="ru">Russian</option>
+                  <option value="tr">Turkish</option>
+                  <option value="nl">Dutch</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="videoFile">Optional video preview</label>
+                <input type="file" id="videoFile" accept="video/*">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary full-width">Translate subtitles</button>
+          </form>
+
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <span>Status</span>
+              <span id="progressText">Waiting</span>
+            </div>
+            <div class="progress-bar">
+              <div id="progressFill"></div>
+            </div>
+          </div>
+
+          <div id="status" class="status-box">Waiting for subtitle upload...</div>
+        </div>
+
+        <div class="panel video-panel">
+          <div class="video-header">
+            <h4>Video preview</h4>
+            <p>Optional local video preview inside the dashboard</p>
+          </div>
+          <video id="videoPreview" controls class="video-preview hidden"></video>
+          <div id="videoPlaceholder" class="video-placeholder">
+            Upload a video file to preview it here
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview" id="preview">
+      <div class="section-head">
+        <span class="pill">Preview</span>
+        <h3>Review translated output</h3>
+      </div>
+
+      <div class="preview-grid">
+        <div class="panel">
+          <div class="toolbar">
+            <input type="text" id="searchInput" placeholder="Search subtitle text or time...">
+            <a id="downloadBtn" class="btn btn-primary hidden" href="#">Download file</a>
+          </div>
+          <textarea id="output" placeholder="Translated subtitle content will appear here..." readonly></textarea>
+        </div>
+
+        <div class="panel">
+          <div class="toolbar stack">
+            <h4>Subtitle blocks</h4>
+            <p>Clean card-based preview</p>
+          </div>
+          <div id="blocksContainer" class="blocks-container"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
